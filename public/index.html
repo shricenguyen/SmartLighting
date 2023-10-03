@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <title>IoT Light System</title>
+</head>
+<body>
+    <h1>Smart Lighting System</h1>
+
+    <h2>Light 1</h2>
+    <button id="toggleBulb1">Turn ON/OFF </button>
+
+    <h2>Light 2</h2>
+    <button id="toggleBulb2">Turn ON/OFF </button>
+
+    <h2>Light 3</h2>
+    <button id="toggleBulb3">Turn ON/OFF </button>
+
+    <script>
+        $(document).ready(function(){
+            //toggle light 1
+            $("#toggleBulb1").click(function(){
+                const bulbId = "bulb1";
+                const currentStatus = $(`#bulb${bulbId}Status`).text();
+                const newStatus = "Light is toggled";
+                toggleLight(bulbId, newStatus);
+                alert("Light is toggled");
+            });
+
+            //toggle light 2
+            $("#toggleBulb2").click(function(){
+                const bulbId = "bulb2";
+                const currentStatus = $(`#bulb${bulbId}Status`).text();
+                const newStatus = "Light is toggled";
+                toggleLight(bulbId, newStatus);
+                alert("Light is toggled");
+            });
+
+            //toggle light 3
+            $("#toggleBulb3").click(function(){
+                const bulbId = "bulb3";
+                const currentStatus = $(`#bulb${bulbId}Status`).text();
+                const newStatus = "Light is toggled";
+                toggleLight(bulbId, newStatus);
+                alert("Light is toggled");
+            });
+
+            //function to toggle light
+            function toggleLight(bulbId, newStatus){
+                $.ajax({
+                    url: "/api/lightbulb",
+                    type: "POST",
+                    data: JSON.stringify({lightID: bulbId, lightStatus: newStatus}),
+                    contentType: "application/json; charset=utf-8",
+                    success: function(response){
+
+                        $("#toggleMessage").text("Light is toggled");
+                    },
+                    error: function(error){
+                        console.error("Error toggling light: ", error);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
